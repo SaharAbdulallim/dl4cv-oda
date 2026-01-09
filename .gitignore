@@ -3,3 +3,4 @@ data/chips
 data/labels
 data/yolo
 notebooks/runs
+*.pt

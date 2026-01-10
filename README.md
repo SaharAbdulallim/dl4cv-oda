@@ -5,7 +5,7 @@ Coconut tree detection from drone imagery using YOLOv8 with OpenStreetMap labels
 ## Overview
 
 - OpenStreetMap point data : bounding boxes with buffer zones
-- Tile large aerial imagery (256×256 at 5cm/pixel): [Source](https://map.openaerialmap.org/#/-175.34221936224426,-21.095929709180027,15/square/20002233030/5a28640ebac48e5b1c58a81d?_k=4yyxj6) 
+- Tile large aerial imagery (256×256 at 9cm/pixel): [Source](https://map.openaerialmap.org/#/-175.34221936224426,-21.095929709180027,15/square/20002233030/5a28640ebac48e5b1c58a81d?_k=4yyxj6) 
 - Convert geographic coordinates to YOLO format
 - Train YOLOv8 on coconut trees from Kolovai, Tonga
 

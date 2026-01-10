@@ -4,7 +4,7 @@ Coconut tree detection from drone imagery using YOLOv8 with OpenStreetMap labels
 
 ## Overview
 
-- OpenStreetMap point data → bounding boxes with buffer zones
+- OpenStreetMap point data : bounding boxes with buffer zones
 - Tile large aerial imagery (256×256 at 5cm/pixel)
 - Convert geographic coordinates to YOLO format
 - Train YOLOv8 on coconut trees from Kolovai, Tonga
@@ -42,7 +42,7 @@ data/
 notebooks/
 ├── 01_cleanup.ipynb         # OSM filtering + bbox generation
 ├── 02_tiles.ipynb           # Imagery tiling
-├── 03_yolo_format.ipynb     # GeoJSON → YOLO conversion
+├── 03_yolo_format.ipynb     # GeoJSON : YOLO conversion
 └── 04_train.ipynb           # YOLOv8 training
 ```
 
@@ -57,11 +57,11 @@ uv sync
 
 ## Workflow
 
-**1. Clean OSM Data** → Filter coconut trees, generate buffered bounding boxes
+**1. Clean OSM Data** : Filter coconut trees, generate buffered bounding boxes
 
-**2. Tile Imagery** → Create 256×256 tiles, clip labels to tile extents
+**2. Tile Imagery** : Create 256×256 tiles, clip labels to tile extents
 
-**3. YOLO Conversion** → Transform coordinates (EPSG:4326 → pixels → normalized [0,1])
+**3. YOLO Conversion** : Transform coordinates (EPSG:4326 : pixels : normalized [0,1])
 
 ```python
 row, col = src.index(lon, lat)  # rasterio
@@ -69,7 +69,7 @@ x_norm = col / img_width
 y_norm = row / img_height
 ```
 
-**4. Train** → YOLOv8n, 100 epochs, batch 16
+**4. Train** : YOLOv8n, 100 epochs, batch 16
 
 ```python
 from ultralytics import YOLO

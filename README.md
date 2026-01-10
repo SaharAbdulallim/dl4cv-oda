@@ -19,14 +19,6 @@ Coconut tree detection from drone imagery using YOLOv8 with OpenStreetMap labels
 - **Tiles**: 256×256px at zoom 19, EPSG:4326
 - **Train/Val**: 441 / 167 tiles (80/20 stratified split)
 
-## Tech Stack
-
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
-![GeoPandas](https://img.shields.io/badge/GeoPandas-139C5A?style=flat&logo=pandas&logoColor=white)
-![Rasterio](https://img.shields.io/badge/Rasterio-4051B5?style=flat)
-![YOLOv8](https://img.shields.io/badge/YOLOv8-00FFFF?style=flat&logo=yolo&logoColor=black)
-![uv](https://img.shields.io/badge/uv-DE5FE9?style=flat&logo=astral&logoColor=white)
-
 ## Structure
 
 ```

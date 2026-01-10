@@ -26,12 +26,16 @@ def geojson_to_yolo(geojson_path, image_path, class_mapping):
             width = abs(top_px - bottom_px) / src.width
             height = abs(top_py - bottom_py) / src.height
 
-            yolo_lines.append(f"{class_id} {center_x:.6f} {center_y:.6f} {width:.6f} {height:.6f}")
+            yolo_lines.append(
+                f"{class_id} {center_x:.6f} {center_y:.6f} {width:.6f} {height:.6f}"
+            )
 
     return yolo_lines
 
 
-def convert_to_yolo_format(trees_path, chips_dir, labels_dir, output_dir, target_species="Coconut"):
+def convert_to_yolo_format(
+    trees_path, chips_dir, labels_dir, output_dir, target_species="Coconut"
+):
     trees = gpd.read_file(trees_path)
     trees = trees[trees["species_mapped"] == target_species]
 
@@ -64,7 +68,9 @@ def convert_to_yolo_format(trees_path, chips_dir, labels_dir, output_dir, target
     return class_to_id
 
 
-def create_train_val_split(labels_dir, chips_dir, yolo_dir, train_ratio=0.8):
+def create_train_val_split(
+    labels_dir, chips_dir, yolo_dir, train_ratio=0.7, val_ratio=0.2, test_ratio=0.1
+):
     labels_dir = Path(labels_dir)
     chips_dir = Path(chips_dir)
     yolo_dir = Path(yolo_dir)
@@ -72,8 +78,10 @@ def create_train_val_split(labels_dir, chips_dir, yolo_dir, train_ratio=0.8):
 
     train_dir = yolo_dir / "train"
     val_dir = yolo_dir / "val"
+    test_dir = yolo_dir / "test"
     train_dir.mkdir(exist_ok=True)
     val_dir.mkdir(exist_ok=True)
+    test_dir.mkdir(exist_ok=True)
 
     data = []
     for label_file in labels_dir.glob("*.geojson"):
@@ -86,9 +94,20 @@ def create_train_val_split(labels_dir, chips_dir, yolo_dir, train_ratio=0.8):
     train_df = df.groupby("species", group_keys=False).apply(
         lambda x: x.sample(frac=train_ratio, random_state=42)
     )
-    val_df = df.drop(train_df.index)
+    remaining_df = df.drop(train_df.index)
 
-    for split_df, target_dir in [(train_df, train_dir), (val_df, val_dir)]:
+    # Split remaining data into val and test based on adjusted ratio
+    val_frac = val_ratio / (val_ratio + test_ratio)
+    val_df = remaining_df.groupby("species", group_keys=False).apply(
+        lambda x: x.sample(frac=val_frac, random_state=42)
+    )
+    test_df = remaining_df.drop(val_df.index)
+
+    for split_df, target_dir in [
+        (train_df, train_dir),
+        (val_df, val_dir),
+        (test_df, test_dir),
+    ]:
         for stem in split_df["file"]:
             with rasterio.open(chips_dir / f"{stem}.tif") as src:
                 Image.fromarray(src.read([1, 2, 3]).transpose(1, 2, 0)).save(
@@ -96,7 +115,7 @@ def create_train_val_split(labels_dir, chips_dir, yolo_dir, train_ratio=0.8):
                 )
             shutil.copy(yolo_labels_dir / f"{stem}.txt", target_dir / f"{stem}.txt")
 
-    return len(train_df), len(val_df)
+    return len(train_df), len(val_df), len(test_df)
 
 
 def create_yolo_config(yolo_dir, class_mapping):
@@ -106,6 +125,7 @@ def create_yolo_config(yolo_dir, class_mapping):
         "path": str(yolo_dir.absolute()),
         "train": "train",
         "val": "val",
+        "test": "test",
         "names": {idx: name for name, idx in class_mapping.items()},
     }
 

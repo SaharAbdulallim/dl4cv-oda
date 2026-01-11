@@ -69,7 +69,7 @@ def convert_to_yolo_format(
 
 
 def create_train_val_split(
-    labels_dir, chips_dir, yolo_dir, train_ratio=0.7, val_ratio=0.2, test_ratio=0.1
+    labels_dir, chips_dir, yolo_dir, train_ratio=0.7, val_ratio=0.2, test_ratio=0.1, seed=42
 ):
     labels_dir = Path(labels_dir)
     chips_dir = Path(chips_dir)
@@ -84,7 +84,7 @@ def create_train_val_split(
     test_dir.mkdir(exist_ok=True)
 
     data = []
-    for label_file in labels_dir.glob("*.geojson"):
+    for label_file in sorted(labels_dir.glob("*.geojson")):
         trees = gpd.read_file(label_file)
         if not trees.empty:
             dominant_species = trees["species_mapped"].value_counts().idxmax()
@@ -92,14 +92,13 @@ def create_train_val_split(
 
     df = pd.DataFrame(data)
     train_df = df.groupby("species", group_keys=False).apply(
-        lambda x: x.sample(frac=train_ratio, random_state=42)
+        lambda x: x.sample(frac=train_ratio, random_state=seed), include_groups=False
     )
     remaining_df = df.drop(train_df.index)
 
-    # Split remaining data into val and test based on adjusted ratio
     val_frac = val_ratio / (val_ratio + test_ratio)
     val_df = remaining_df.groupby("species", group_keys=False).apply(
-        lambda x: x.sample(frac=val_frac, random_state=42)
+        lambda x: x.sample(frac=val_frac, random_state=seed), include_groups=False
     )
     test_df = remaining_df.drop(val_df.index)
 

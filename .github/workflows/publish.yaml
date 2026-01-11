@@ -9,7 +9,7 @@ jobs:
   publish:
     name: Build and Publish to PyPI
     runs-on: ubuntu-latest
-    environment: pypi
+    environment: UV_PUBLISH_TOKEN
     permissions:
       id-token: write  # Required for trusted publishing
 

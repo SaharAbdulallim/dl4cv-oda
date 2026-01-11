@@ -46,6 +46,14 @@ uv sync
 pip install dl4cv_oda
 ```
 
+## Development ( version bump)
+
+```bash
+uv sync --extra dev
+cz bump
+git push --tags
+```
+
 ## Workflow
 <img width="2833" height="1411" alt="image" src="https://github.com/user-attachments/assets/523f03b8-ff87-4c02-8c14-12c70e20e69f" />
 

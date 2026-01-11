@@ -43,7 +43,6 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 git clone https://github.com/kshitijrajsharma/dl4cv-object-detection-on-aerial-imagery
 cd dl4cv-object-detection-on-aerial-imagery
 uv sync
-pip install dl4cv_oda
 ```
 
 ## Development ( version bump)

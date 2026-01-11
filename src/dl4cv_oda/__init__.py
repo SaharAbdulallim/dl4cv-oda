@@ -1,4 +1,4 @@
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 from .cleanup import clean_osm_data
 from .tiling import clip_labels_to_tiles, download_tiles

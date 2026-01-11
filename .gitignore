@@ -3,6 +3,7 @@ data/chips
 data/labels
 data/yolo
 notebooks/runs
+# notebooks/results
 *.pt
 __pycache__
 *.pyc
@@ -12,5 +13,4 @@ dist/
 build/
 .pytest_cache
 .ruff_cache
-# runs/
 *.log

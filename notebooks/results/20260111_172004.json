@@ -1,0 +1,53 @@
+{
+  "exp_id": "20260111_172004",
+  "seed": 64,
+  "epochs": 20,
+  "img_size": 256,
+  "batch": 16,
+  "patience": 5,
+  "models": [
+    "yolov8l",
+    "yolo12l",
+    "rtdetr-l"
+  ],
+  "results": [
+    {
+      "model": "yolov8l",
+      "tuned": true,
+      "val_precision": 0.06886766547155053,
+      "val_recall": 0.3724525650035137,
+      "val_f1": 0.11624158041557078,
+      "val_map50": 0.045339076320841006,
+      "test_precision": 0.0641959601353942,
+      "test_recall": 0.36894759052900244,
+      "test_f1": 0.10936277405461736,
+      "test_map50": 0.04179846182110307
+    },
+    {
+      "model": "yolo12l",
+      "tuned": true,
+      "val_precision": 0.2404274095206424,
+      "val_recall": 0.43675333801827126,
+      "val_f1": 0.31013084460960694,
+      "val_map50": 0.1390536533899635,
+      "test_precision": 0.24526174625165786,
+      "test_recall": 0.5,
+      "test_f1": 0.3290943328178096,
+      "test_map50": 0.15452333920465433
+    },
+    {
+      "model": "rtdetr-l",
+      "tuned": true,
+      "val_precision": 0.6814007793486069,
+      "val_recall": 0.5874912157413914,
+      "val_f1": 0.6309704188070666,
+      "val_map50": 0.5643333529278111,
+      "test_precision": 0.6933819760301235,
+      "test_recall": 0.6243478260869565,
+      "test_f1": 0.6570560977807692,
+      "test_map50": 0.6029174216132809
+    }
+  ],
+  "best_model": "rtdetr-l",
+  "best_test_map50": 0.6029174216132809
+}

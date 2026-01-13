@@ -1,3 +1,10 @@
+## v0.1.4 (2026-01-13)
+
+### Fix
+
+- **optuna**: fixes notebook rendering
+- **tune**: fixes bug on model tune
+
 ## v0.1.3 (2026-01-11)
 
 ### Fix

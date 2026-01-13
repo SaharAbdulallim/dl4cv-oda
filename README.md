@@ -1,6 +1,6 @@
 # Object Detection on Aerial Imagery for Coconut Trees Detection
 
-Coconut tree detection from drone imagery using YOLOv8, Yolov12, and RT_DERT models with OpenStreetMap labels and OpenAerialMap imagery.
+Coconut tree detection from drone imagery using YOLOv8, Yolov12, and RT_DERT models with OpenStreetMap labels and OpenAerialMap imagery.m
 
 ## Overview
 
